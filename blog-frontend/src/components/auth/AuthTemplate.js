@@ -37,8 +37,6 @@ const WhiteBox = styled.div`
 
 // 화면 전체를 채움
 const AuthTemplate = ({ children }) => {
-
-
   return (
     <AuthTemplateBlock>
       <WhiteBox>
