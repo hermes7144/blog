@@ -27,6 +27,23 @@ export const changeField = createAction(
 )
 export const initializeForm = createAction(INITIALIZE_FORM, form => form); // register / login
 
+export const register = createAction(REGISTER, ({ username, password }) => ({
+  username,
+  password,
+}))
+
+export const login = createAction(LOGIN, ({ username, password }) => ({
+  username,
+  password,
+}))
+
+// 사가 생성
+const registerSaga = createRequestSaga(REGISTER, authAPI.register);
+const loginSaga = createRequestSaga(LOGIN, authAPI.login);
+export function* authSaga() {
+  yield takeLatest(REGISTER, registerSaga);
+  yield takeLatest(LOGIN, loginSaga);
+}
 
 // 초깃값 설정
 const initialState = {
@@ -38,7 +55,9 @@ const initialState = {
   login: {
     username: '',
     password: '',
-  }
+  },
+  atuh: null,
+  authError: null
 }
 // 리듀서 함수
 const auth = handleActions(
@@ -50,7 +69,29 @@ const auth = handleActions(
     [INITIALIZE_FORM]: (state, { payload: form }) => ({
       ...state,
       [form]: initialState[form],
-    })
+    }),
+    // 회원가입 성공
+    [REGISTER_SUCCESS]: (state, { payload: auth }) => ({
+      ...state,
+      authError: null,
+      auth
+    }),
+    // 회원가입 실패
+    [REGISTER_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+    }),
+    // 로그인 성공
+    [LOGIN_SUCCESS]: (state, { payload: auth }) => ({
+      ...state,
+      authError: null,
+      auth
+    }),
+    // 로그인 실패
+    [LOGIN_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+    }),
   },
   initialState,
 )
