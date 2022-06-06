@@ -56,7 +56,7 @@ const initialState = {
     username: '',
     password: '',
   },
-  atuh: null,
+  auth: null,
   authError: null
 }
 // 리듀서 함수
