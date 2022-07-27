@@ -1,19 +1,19 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import Responsive from '../common/Responsive';
 import Button from '../common/Button';
-import palette from '../../lib/styles/palette'
+import palette from '../../lib/styles/palette';
 import SubInfo from '../common/SubInfo';
-import Tags from '../common/Tags'
+import Tags from '../common/Tags';
 
 const PostListBlock = styled(Responsive)`
   margin:top: 3rem
 `;
 
 const WritePostButtonWrapper = styled.div`
-  display:flex;
-  justify-content:flex-end;
+  display: flex;
+  justify-content: flex-end;
   margin-bottom: 3rem;
 `;
 
@@ -33,7 +33,7 @@ const PostItemBlock = styled.div`
     margin-bottom: 0;
     margin-top: 0;
     &:hover {
-      color: ${palette.gray[6]}
+      color: ${palette.gray[6]};
     }
   }
 
@@ -57,13 +57,12 @@ const PostItem = ({ post }) => {
       <p>{body}</p>
     </PostItemBlock>
   );
-}
+};
 
 const PostList = ({ posts, loading, error, showWriteButton }) => {
-
-  if (error)
-  {
-    return <PostListBlock>에러가 발생했습니다.</PostListBlock>
+  console.log(posts);
+  if (error) {
+    return <PostListBlock>에러가 발생했습니다.</PostListBlock>;
   }
   return (
     <PostListBlock>
@@ -77,13 +76,13 @@ const PostList = ({ posts, loading, error, showWriteButton }) => {
       {/* 로딩 중이 아니고, 포스트 배열이 존재할 때만 보여 줌*/}
       {!loading && posts && (
         <div>
-          {posts.map(post => (
+          {posts.map((post) => (
             <PostItem post={post} key={post._id} />
           ))}
         </div>
       )}
     </PostListBlock>
-  )
-}
+  );
+};
 
-export default PostList
+export default PostList;
